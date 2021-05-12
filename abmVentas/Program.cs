@@ -15,6 +15,7 @@ namespace abmVentas
             bool seguir = true;
             bool continuar = true;
             int cantidadProductosStock = 4;
+            int cantidadVentas = 1;
             string sn;
             int indice = -1;
 
@@ -42,17 +43,19 @@ namespace abmVentas
             float[] stockCantidades = { 10, 0, 5, 7 };
             float[] stockPrecios = { 20, 0, 10, 25 };
 
-            string[] ventaNombres = new string[cantidadProductosStock];
-            float[] ventaCantidades = new float[cantidadProductosStock];
-            float[] ventaPrecios = new float[cantidadProductosStock];
+            string[] ventaNombres = new string[cantidadVentas];
+            float[] ventaCantidades = new float[cantidadVentas];
+            float[] ventaPrecios = new float[cantidadVentas];
             float[] acumuladoCantidades = new float[cantidadProductosStock];
+            string[] acumuladoVentas = new string[cantidadVentas];
+            float[] acumuludadoPrecios = new float[cantidadVentas];
 
             //Programa            
             do
             {
                 titulo();
                 menuOpcionesPrincipal();
-                opcionElegida = validarOpcion("¿Qué desea hacer?", 1, 6);
+                opcionElegida = validarOpcion("¿Qué desea hacer?: ", 1, 6);
 
                 switch (opcionElegida)
                 {
@@ -97,113 +100,64 @@ namespace abmVentas
                             {
                                 if (string.IsNullOrEmpty(stockNombre[i]))
                                 {
-
                                     indice = i;
                                     break;
                                 }
                             }
 
-                            if (indice == -1)
-                            {//Si no hay elementos null/empty
-
+                            if (indice == -1)//Si no hay elementos null/empty
+                            {
                                 cantidadProductosStock++;//Modificar indice de los array
-                                //Cambiar tamaño array nombreStock
+
+                                //Cambiar tamaño array nombreStock 
                                 Array.Resize(ref stockNombre, stockNombre.Length + 1);
+                                //Cambiar tamaño del acumuladoCantidades para recorrerlo en la impresión de acumulados
+                                Array.Resize(ref acumuladoCantidades, acumuladoCantidades.Length + 1);
+
                                 //Agregar nombre al array
                                 for (int i = 0; i < stockNombre.Length; i++)
                                 {
-                                    if (string.IsNullOrEmpty(ventaNombres[i]))
+                                    if (string.IsNullOrEmpty(stockNombre[i]))
                                     {
-
                                         stockNombre[i] = nombreProductoIngresado;
                                         indice = i;
                                     }
                                 }
+
                                 //Cambiar tamaño array stockDescripcion
                                 Array.Resize(ref stockDescripcion, stockDescripcion.Length + 1);
+
                                 //Agregar descripción al array
-                                //for (int i = 0; i < stockDescripcion.Length; i++)
-                                {
-                                    //if(string.IsNullOrEmpty(ventaNombres[i]))
-                                    {
-
-                                        //stockDescripcion[i] = descripcionProductoIngresado;
-                                        stockDescripcion[indice] = descripcionProductoIngresado;
-                                    }
-
-                                }
+                                stockDescripcion[indice] = descripcionProductoIngresado;
+                                    
                                 //Cambiar tamaño array stockCantidades
                                 Array.Resize(ref stockCantidades, stockCantidades.Length + 1);
+
                                 //Agregar cantidad al array
-                                //for (int i = 0; i < stockCantidades.Length; i++)
-                                {
-                                    //if(stockCantidades[i] == 0)
-                                    {
+                                stockCantidades[indice] = cantidadProductoIngresado;
 
-                                        //stockCantidades[i] = cantidadProductoIngresado;
-                                        stockCantidades[indice] = cantidadProductoIngresado;
-
-                                    }
-                                }
-                                //Cambiar tamaño del array stockPrecios
+                                //Cambiar tamaño del array stockPrecios y ventaPrecios
                                 Array.Resize(ref stockPrecios, stockPrecios.Length + 1);
+
                                 //Agregar precio al array
-                                //for (int i = 0; i < stockPrecios.Length; i++)
-                                {
-                                    //if(stockPrecios[i] == 0)
-                                    {
-
-                                        //stockPrecios[i] = precioProductoIngresado;
-                                        stockPrecios[indice] = precioProductoIngresado;
-                                    }
-                                }
-
+                                stockPrecios[indice] = precioProductoIngresado;
+                                    
                             }
-                            else
-                            {//Si hay elementos null/empty
+                            else //Si hay elementos null/empty
+                            {
 
-                                //Agregar nombre al array
-                                //for (int i = 0; i < stockNombre.Length; i++)
-                                {
-                                    //if(string.IsNullOrEmpty(ventaNombres[i]))
-                                    {
-                                        //stockNombre[i] = nombreProductoIngresado;
-                                        //break;
-                                        stockNombre[indice] = nombreProductoIngresado;
-                                    }
-                                }
+                                //Agregar nombre al array                                
+                                stockNombre[indice] = nombreProductoIngresado;
+                                    
                                 //Agregar descripción al array
-                                //for (int i = 0; i < stockDescripcion.Length; i++)
-                                {
-                                    //if(string.IsNullOrEmpty(ventaNombres[i]))
-                                    {
-                                        //stockDescripcion[i] = descripcionProductoIngresado;
-                                        //break;
-                                        stockDescripcion[indice] = descripcionProductoIngresado;
-                                    }
-
-                                }
+                                stockDescripcion[indice] = descripcionProductoIngresado;
+                                    
                                 //Agregar cantidad al array
-                                //for (int i = 0; i < stockCantidades.Length; i++)
-                                {
-                                    //if(stockCantidades[i] == 0)
-                                    {
-                                        //stockCantidades[i] = cantidadProductoIngresado;
-                                        //break;
-                                        stockCantidades[indice] = cantidadProductoIngresado;
+                                stockCantidades[indice] = cantidadProductoIngresado;
 
-                                    }
-                                }
                                 //Agregar precio al array
-                                //for (int i = 0; i < stockPrecios.Length; i++)
-                                {
-                                    //if(stockPrecios[i] == 0)
-                                    {
-                                        //stockPrecios[i] = precioProductoIngresado;
-                                        //break;
-                                        stockCantidades[indice] = cantidadProductoIngresado;
-                                    }
-                                }
+                                stockCantidades[indice] = cantidadProductoIngresado;
+                                 
                             }
 
                             //Continuar
@@ -279,7 +233,6 @@ namespace abmVentas
                         }
                         else
                         {
-
                             //Volver al menu principal
                             Console.Clear();
                         }
@@ -366,9 +319,8 @@ namespace abmVentas
                                     Console.WriteLine("Producto borrado. Precione una tecla para continuar");
 
                                 }
-                                else
-                                {//Sin cambio de producto
-
+                                else //Sin cambio de producto
+                                {
                                     //Borrar
                                     stockNombre[indice] = "";
                                     stockDescripcion[indice] = "";
@@ -384,7 +336,6 @@ namespace abmVentas
                                 sn = validarSN("¿Desea borrar otro producto? (s/n)");
                                 if (sn == "n")
                                 {
-
                                     continuar = false;
                                 }
 
@@ -407,24 +358,11 @@ namespace abmVentas
 
                         do
                         {
-                            Console.Clear();
-                            titulo();
-
-                            //Productos en venta
-                            Console.WriteLine("Productos disponibles:\n");
-                            for (int i = 0; i < stockCantidades.Length; i++)
-                            {
-                                if (stockCantidades[i] != 0)
-                                {
-
-                                    Console.WriteLine($"{stockNombre[i]}");
-                                }
-                            }
-
                             do
                             {
                                 //Seleccionar producto a vender
                                 indice = -1;
+                                int aux = -1;
 
                                 Console.Clear();
                                 titulo();
@@ -432,11 +370,11 @@ namespace abmVentas
                                 {
                                     if (stockCantidades[i] != 0)
                                     {
-
-                                        Console.WriteLine($"{stockNombre[i]}");
+                                        Console.WriteLine($"{i}) {stockNombre[i]}");
+                                        aux = i;
                                     }
                                 }
-                                indice = seleccionarProducto("\nEscriba nombre de producto: ", indice, stockNombre, stockDescripcion, stockCantidades, stockPrecios);
+                                indice = validarOpcion("\nIndique número del producto: ", 0, aux);
 
                                 //Validación de producto                                
                                 while (indice == -1)
@@ -448,12 +386,10 @@ namespace abmVentas
                                     {
                                         if (stockCantidades[i] != 0)
                                         {
-
                                             Console.WriteLine($"{stockNombre[i]}");
                                         }
                                     }
-                                    indice = seleccionarProducto("\nEscriba nombre del producto a vender: ", indice, stockNombre, stockDescripcion, stockCantidades, stockPrecios);
-
+                                    indice = validarOpcion("\nIndique número del producto: ", 0, aux);
                                 }
 
                                 //Seleccionar cantidades
@@ -467,36 +403,50 @@ namespace abmVentas
                                 }
 
                                 //Acumulado en venta
+                                cantidadVentas++;
+                                int indiceVenta = -1;
+
                                 //Nombre
+                                Array.Resize(ref ventaNombres, ventaNombres.Length + 1);
                                 for (int i = 0; i < ventaNombres.Length; i++)
                                 {
                                     if (string.IsNullOrEmpty(ventaNombres[i]))
                                     {
                                         ventaNombres[i] = stockNombre[indice];
+                                        indiceVenta = i;
                                         break;
                                     }
                                 }
+
                                 //Cantidades
-                                acumuladoCantidades[indice] += cantidadVenta;//Acumulado cantidades
-                                for (int i = 0; i < stockCantidades.Length; i++)
+                                for (int i = 0; i < acumuladoCantidades.Length; i++)
+                                {
+                                    if (acumuladoCantidades[i] == 0)
+                                    {
+                                        acumuladoCantidades[indiceVenta] += cantidadVenta;//Acumulado cantidades
+                                        break;
+                                    }
+                                }
+                                Array.Resize(ref ventaCantidades, ventaCantidades.Length + 1);
+                                for (int i = 0; i < ventaCantidades.Length; i++)
                                 {
                                     if (ventaCantidades[i] == 0)
                                     {
-                                        ventaCantidades[i] = cantidadVenta;
+                                        ventaCantidades[indiceVenta] = cantidadVenta;
                                         break;
-
                                     }
                                 }
                                 stockCantidades[indice] -= cantidadVenta;//Restar cantidad en stock
+
                                 //Precios
                                 precioVenta = stockPrecios[indice] * cantidadVenta;
-                                for (int i = 0; i < stockPrecios.Length; i++)
+                                Array.Resize(ref ventaPrecios, ventaPrecios.Length + 1);
+                                for (int i = 0; i < ventaPrecios.Length; i++)
                                 {
                                     if (ventaPrecios[i] == 0)
                                     {
-                                        ventaPrecios[i] = precioVenta;
+                                        ventaPrecios[indiceVenta] = precioVenta;
                                         break;
-
                                     }
                                 }
                                 totalVenta += precioVenta;
@@ -518,8 +468,8 @@ namespace abmVentas
                                 //Continuar
                                 if (sn == "s")
                                 {
-
                                     continuar = false;
+                                    Console.Clear();
                                 }
 
                             } while (continuar);
@@ -533,18 +483,26 @@ namespace abmVentas
                             {
                                 if (!string.IsNullOrEmpty(ventaNombres[i]))
                                 {
-                                    Console.Write($"{i + 1}. Nombre del Producto: {ventaNombres[i]}\nCantidad Vendida: {ventaCantidades[i]}Kgs\nCantidad a pagar: ${ventaPrecios[i]}\n");
+                                    Console.Write($"{i + 1}. Nombre del Producto: {ventaNombres[i]}\nCantidad Vendida: {ventaCantidades[i]}Kgs\nCantidad a pagar: ${ventaPrecios[i]}\n-----------------------------\n");
                                 }
                             }
                             Console.Write($"\nValor total: ${totalVenta}\n\n\n");
                             totalRecaudado += totalVenta;//Acumulado de recaudación
+
+                            do
+                            {
+
+
+                            } while (continuar);
 
                             //Salir
                             sn = validarSN("Presione s para volver al menu principal o n para seguir vendiendo");
                             if (sn == "s")
                             {
                                 continuar = false;
+                                Console.Clear();
                             }
+
                         } while (continuar);
 
                         break;
@@ -556,7 +514,7 @@ namespace abmVentas
                             Console.Clear();
                             titulo();
                             Console.WriteLine("Elegir opción:\n\n1. Ver resumen de productos vendidos\n2. Ver total recaudado\n");
-                            opcionElegida = validarOpcion("Opción elegida", 1, 2);
+                            opcionElegida = validarOpcion("Opción elegida: ", 1, 2);
 
                             switch (opcionElegida)
                             {
@@ -569,17 +527,19 @@ namespace abmVentas
                                     {
                                         if (acumuladoCantidades[i] != 0)
                                         {
-
                                             Console.WriteLine($"Producto: {stockNombre[i]}\nCantidad vendida: {acumuladoCantidades[i]}Kgs");
                                             Console.WriteLine("--------------------");
                                         }
                                     }
+
+                                    continuar = true; //Reseteo de variable
 
                                     //Salir
                                     sn = validarSN("\n\n\nPresione s para volver al menu anterior o n para volver al menu principal");
                                     if (sn == "n")
                                     {
                                         continuar = false;
+                                        Console.Clear();
                                     }
 
                                     break;
@@ -591,11 +551,14 @@ namespace abmVentas
                                     Console.WriteLine("Recaudación diaria:\n");
                                     Console.WriteLine($"El día de hoy se vendieron un total de: ${totalRecaudado}");
 
+                                    continuar = true; //REseteo de variable
+
                                     //Salir
                                     sn = validarSN("\n\n\nPresione s para volver al menu anterior o n para volver al menu principal");
                                     if (sn == "n")
                                     {
                                         continuar = false;
+                                        Console.Clear();
                                     }
 
                                     break;
@@ -618,6 +581,7 @@ namespace abmVentas
                         if (sn == "s")
                         {
                             seguir = false;
+                            Console.Clear();
                         }
 
                         break;
@@ -664,8 +628,7 @@ namespace abmVentas
         //Procedimientos de validación
         static int validarOpcion(string mensaje, int min, int max)
         {
-
-            Console.WriteLine(mensaje);
+            Console.Write(mensaje);
 
             int aux;
 
@@ -720,7 +683,6 @@ namespace abmVentas
             {
                 int offset = cantidadDecimales.IndexOf(",");
                 string suffix = cantidadDecimales.Substring(offset + 1);
-                Console.WriteLine(aux);
 
                 while (suffix.Length > 3)
                 {
@@ -843,9 +805,8 @@ namespace abmVentas
                 Console.WriteLine("Producto modificado. Precione una tecla para volver al menu principal");
 
             }
-            else
-            {//Sin cambio de producto
-
+            else //Sin cambio de producto
+            {
                 //Modificación
                 Console.Clear();
                 titulo();
