@@ -1,4 +1,4 @@
-Proyecto CRUD realizado en C# utilizando arrays y funciones básicas.
+Proyecto CRUD realizado en C# utilizando arrays y funciones básicas. Este proyecto corresponde a un examen parcial
 
 #Sistema de stock
 
